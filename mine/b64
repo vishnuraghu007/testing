@@ -1,0 +1,57 @@
+import sys
+import dlib
+import cv2
+import numpy as np
+import copy
+import base64
+import cStringIO
+from io import BytesIO
+import PIL.Image
+import Image
+
+
+
+data =cv2.imread("index.jpeg")
+data = cv2.cvtColor(data, cv2.COLOR_BGR2RGB)
+#f=open("day0.txt", "r")
+#s=f.read()
+im_pil = Image.fromarray(data)
+buffer = cStringIO.StringIO()
+im_pil.save(buffer, format="png")
+s = base64.b64encode(buffer.getvalue())
+f=open("day0.txt", "w")
+f.write(s)
+im = Image.open(BytesIO(base64.b64decode(s)))
+im.save('accept.jpg', 'JPEG')
+data=np.array(im.getdata()).reshape(im.size[0],im.size[1], 3)
+print data
+cv2.imwrite("mm.jpg",data)
+#data = cv2.cvtColor(data, cv2.COLOR_RGB2BGR)
+
+#d=base64.decodestring(s)
+#npimg = np.fromstring(d, dtype=np.uint8)
+
+#print npimg.shape[0]/2
+#print 470*520*3
+
+#s= base64.encodestring(data)
+#print  s
+
+#f=open("day0.txt", "w")
+#f.write(encoded_string)
+
+#s=data.astype(float)
+#s = base64.b64encode(im)
+#print im
+#s=s
+#f=open("day0.txt", "w")
+#f.write(s)
+#f=open("day0.txt", "r")
+#s=f.read()
+#print s
+
+#img = base64.decodestring(encoded_string)
+#npimg = np.fromstring(img, dtype=np.uint8)
+#image = npimg.reshape(data.shape)
+#cv2.imwrite("im0.png",image)
+
